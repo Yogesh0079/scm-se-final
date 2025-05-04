@@ -1,0 +1,24 @@
+name: Commit Automation
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Make Changes
+        run: |
+          echo "Automated update" >> update.log
+
+      - name: Commit Changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add update.log
+          git commit -m "Automated commit from GitHub Actions"
+          git push
